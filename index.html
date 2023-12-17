@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+    * {box-sizing: border-box}
+    body {font-family: Verdana, sans-serif; margin:0}
+    .mySlides {display: none}
+    img {vertical-align: middle;}
+    
+    /* Slideshow container */
+    .slideshow-container {
+      max-width: 1000px;
+      position: relative;
+      margin: auto;
+    }
+    
+    /* Next & previous buttons */
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      width: auto;
+      padding: 16px;
+      margin-top: -22px;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      transition: 0.6s ease;
+      border-radius: 0 3px 3px 0;
+      user-select: none;
+    }
+    
+    /* Position the "next button" to the right */
+    .next {
+      right: 0;
+      border-radius: 3px 0 0 3px;
+    }
+    
+    /* On hover, add a black background color with a little bit see-through */
+    .prev:hover, .next:hover {
+      background-color: rgba(0,0,0,0.8);
+    }
+    
+    /* Caption text */
+    .text {
+      color: #f2f2f2;
+      font-size: 15px;
+      padding: 8px 12px;
+      position: absolute;
+      bottom: 8px;
+      width: 100%;
+      text-align: center;
+    }
+    
+    /* Number text (1/3 etc) */
+    .numbertext {
+      color: #f2f2f2;
+      font-size: 12px;
+      padding: 8px 12px;
+      position: absolute;
+      top: 0;
+    }
+    
+    /* The dots/bullets/indicators */
+    .dot {
+      cursor: pointer;
+      height: 15px;
+      width: 15px;
+      margin: 0 2px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.6s ease;
+    }
+    
+    .active, .dot:hover {
+      background-color: #717171;
+    }
+    
+    /* Fading animation */
+    .fade {
+      animation-name: fade;
+      animation-duration: 1.5s;
+    }
+    
+    @keyframes fade {
+      from {opacity: .4} 
+      to {opacity: 1}
+    }
+    
+    /* On smaller screens, decrease text size */
+    @media only screen and (max-width: 300px) {
+      .prev, .next,.text {font-size: 11px}
+    }
+    :root {
+    /* Font Color */
+    --light-theme: #f8f9fa;
+    
+    /* Circle Width */
+    --circle-diameter: 300px;
+
+    /* Font Family */
+    --fonts-style-x: 'neuzeit-grotesk', sans-serif;
+    --fonts-style-y: 'neuzeit-grotesk', sans-serif;
+
+    /* Font Weight */
+    --light: 300;
+    --regular: 400;
+    --bold: 700;
+    --black: 900;
+
+}
+
+
+/* ------------- */
+/* Basic Setting */
+/* ------------- */
+
+html,
+body {
+    box-sizing: border-box;
+    font-family: 'neuzeit-grotesk', sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 1em;
+    line-height: 1.5;
+    color: #ffffffee;
+    scroll-behavior: smooth;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+main {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    min-height: 640px;
+    background-color: var(--light-theme);
+}
+
+::selection {
+    color: #fff;
+    background-color: var(--light-theme);
+}
+
+
+/* ------------- */
+/* Content Style */
+/* ------------- */
+
+.google-map {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--circle-diameter);
+    height: var(--circle-diameter);
+    overflow: hidden;
+    border-radius: var(--circle-diameter);
+    background-color: #eee;
+    transition: 5000ms;
+    cursor: grab;
+}
+
+/*
+.google-map::after {
+    content: "";
+    position: absolute;
+    width: var(--circle-diameter);
+    height: var(--circle-diameter);
+    border-radius: var(--circle-diameter);
+    background: radial-gradient(circle, #ffffff00 0%, #f8f9fa 50%);
+    pointer-events: none;
+}
+*/
+
+.google-map .map-frame {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--light-theme);
+}
+
+.google-map iframe {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: visibleStroke;
+}
+
+
+/* ------------------ */
+/* Interactive Effect */
+/* ------------------ */
+
+.google-map:hover {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+}
+.buttons {
+    margin: 10%;
+    text-align: center;
+    
+}
+
+.btn-hover {
+    width: 200px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 20px;
+    height: 55px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+
+    border-radius: 50px;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn-hover:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn-hover:focus {
+    outline: none;
+}
+
+.btn-hover.color-1 {
+    background-image: linear-gradient(to right, #25aae1, #40e495, #30dd8a, #2bb673);
+    box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
+    
+}
+.btn-hover.color-2 {
+    background-image: linear-gradient(to right, #f5ce62, #e43603, #fa7199, #e85a19);
+    box-shadow: 0 4px 15px 0 rgba(229, 66, 10, 0.75);
+}/* body */
+body {
+    font-family: "Spline Sans",sans-serif;
+    color:#777;
+    line-height:1.8;
+    
+    
+
+}
+body{
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(https://images.pexels.com/photos/2946979/pexels-photo-2946979.jpeg);
+    background-attachment: fixed;
+    
+    
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-weight: 600;
+    color: #222;
+}
+
+a {
+    color: #222;
+    text-decoration: none;
+    transition: all 0.5s;
+    font-weight: 600;
+    padding: 30px;
+}
+
+a:hover {
+    color:red;
+}
+
+img {
+    width: 100%;
+}
+  
+    
+section{
+    padding-top: 120px;
+    padding-bottom:120px ;
+   
+}
+
+
+.shadow-on-hover{
+    transition: all 0.4s;
+}
+
+.shadow-on-hover:hover {
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+/* btn */
+
+.navbar{
+    margin-top:40px;
+    background-color: #71df28;
+
+}
+
+
+
+#navbarNav{
+    background-color: transparent;
+}
+  
+button{
+    box-shadow: 0 0 5px #78A55A,
+    0 0 25px #78A55A;
+    border-radius: 0;
+    padding: 14px 38px;
+}
+
+
+button:hover{
+    box-shadow: 0 0 5px #78A55A,
+    0 0 25px #78A55A, 0 0 50px #78A55A, 0 0 100px #78A55A, 0 0 200px #78A55A ;
+    border-color:  #78A55A;
+    background-color: #78A55A;
+    color: white;
+}
+
+
+
+.btn-brand {
+    color: #fff;
+    font-weight: 500;
+    border-color:  #78A55A;
+    background-color: #78A55A;
+}
+
+
+/* slider */
+
+.slide-1 {
+    background: linear-gradient(rgba(0,0,0,0.5), transparent), url(/assets/images/WhatsApp\ Image\ 2023-09-05\ at\ 9.42.33\ PM.jpeg);
+}
+
+
+.slide-2 {
+    background: linear-gradient(rgba(0,0,0,0.5), transparent), url(/assets/images/WhatsApp\ Image\ 2023-09-05\ at\ 9.42.34\ PM\ \(1\).jpeg);
+}
+
+.slide-3 {
+    background: linear-gradient(rgba(0,0,0,0.5), transparent), url(/assets/images/WhatsApp\ Image\ 2023-09-05\ at\ 9.42.31\ PM.jpeg);
+}
+
+.bg-cover {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#heroslider h6::after,
+#heroslider h6::before {
+    content:" " ;
+    width:40px ;
+    height: 4px;
+    background-color: #ffffff;
+    display: inline-block;
+    margin:10px;
+    vertical-align: middle;
+}
+
+.carousel-control-prev,
+.carousel-control-next{
+    background-color: rgba(0,0,0,0.6);
+    width: 40px;
+    height: 70px;
+    margin: auto;
+}
+
+#about .divider {
+    width: 180px ;
+    height: 2px ;
+    display: block;
+    background-color: #78A55A;
+}
+
+/* departments */
+
+
+
+.semester{
+    background-color: #78A55A;
+    padding-left: 50px;
+}
+#grid{
+    background-color: #78A55A;
+    background-image: linear-gradient(to bottom right green,red);
+
+}
+
+.hello{
+    color: GREEN;
+    height: 50px;
+    width: auto;
+    font-weight: bold;
+
+}
+
+
+
+/* Style for the Events section */
+.events {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.event {
+    margin-bottom: 40px;
+}
+
+h2 {
+    color: #71df28;
+}
+
+.event-details {
+    color: #71df28;
+}
+
+.event-description {
+    color: #71df28;
+}
+
+.tab-content{
+    
+}
+
+    </style>
+
+</head>
+<body>
+
+  
+
+  
+    <!-- navbar -->
+  <nav class="navbar navbar-expand-lg  background-color bg-light shadow py-2 sticky-top ">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="/assets/images/book.png" width="40px" height="100px" alt="">
+      </a>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>9
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="#home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#courses">Courses</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#events">Events</a>
+          </li>
+        
+         
+          <li class="nav-item">
+            <a class="nav-link" href="#contact us">Contact Us</a>
+          </li>
+        </ul>
+        <a href="sign page.html"><button class="btn-brand"> SIGN UP </button></a>
+      </div>
+    </div>
+  </nav>
+  <marquee>
+    <p class="hello"> THIS IS STUDENT PORTAL </p>
+  </marquee>
+
+ 
+
+  
+ <!-- slider -->
+ <section id="home" class="">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 intro-text">
+        </div>
+      </div>
+    </div>
+  <div id="heroslider" class="carousel slide"   data-bs-slide="carousel">
+    <div class="carousel-inner">
+
+      <div class="carousel-item text-center bg-cover vh-100  active slide-1">
+        <div class="container h-100 d-flex align-items-center justify-content-center">
+          <div class="row justify-content-center">
+            <div class="col-lg-8">
+              <h6 class="text-white"></h6>
+              <h1 class="display-1  fw-bold text-white">EVERYTHING YOU NEED TO EXCEED</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item text-center bg-cover vh-100 slide-2">
+        <div class="container h-100 d-flex align-items-center justify-content-center">
+          <div class="row justify-content-center">
+            <div class="col-lg-8">
+              <h6 class="text-white"></h6>
+              <h1 class="display-1 fw-bold text-white">EVERYTHING YOU NEED TO EXCEED</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item text-center bg-cover vh-100 slide-3">
+        <div class="container h-100 d-flex align-items-center justify-content-center">
+          <div class="row justify-content-center">
+            <div class="col-lg-8">
+              <h6 class="text-white"></h6>
+              <h1 class="display-1 fw-bold text-white">EVERYTHING YOU NEED TO EXCEED</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroslider" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroslider" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  </section>
+   <!--departments-->
+   <section id="courses" class=" ">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 intro-text">
+          <h1 style="text-align: center; color: #78A55A;" > DEPARTMENTS </h1>
+        </div>
+      </div>
+    </div>
+    <div class="tab-content" id="pills-tabContent">
+      <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab" tabindex="0">
+      
+        <div class="row gy-4">
+          <div class="col-lg-3 col-sm-6"> 
+            <div class="courses-item bg-white shadow-on-hover">
+              <img src="/assets/images/computer-engineering-icon-gear-and-laptop-vector-19038146.jpg" height="200px" width="40px" alt="">
+              <div class="menu-item-content p-4">
+              
+              <h5 class="mt-1 mb-2 justify-content-center"><a href="computer.html">Computer Engineering</a></h5>
+              <p class="small"></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+          <div class="menu-item bg-white shadow-on-hover">
+            <img src="/assets/images/240_F_285828947_7LvtUCUFARVTzcxvPDM2EkTuknA50buy.jpg"  height="200px" width="40px" alt="">
+            <div class="menu-item-content p-4">
+           
+            <h5 class="mt-1 mb-2 justify-content-center"><a href="electrical.html">Electrical Engineering</a></h5>
+            <p class="small"></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="menu-item bg-white shadow-on-hover">
+          <img src="/assets/images/images.png"  height="176px" width="40px" alt="">
+          <div class="menu-item-content p-4">
+         
+          <h5 class="mt-1 mb-2 justify-content-center"><a href="ece.html">Electronic And Communication Engineering</a></h5>
+          <p class="small"></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <div class="menu-item bg-white shadow-on-hover">
+        <img src="/assets/images/240_F_279670083_6Q2SmbCUEYU3ucziI2trGspNIApgzB2v.jpg"  height="200px" width="40px" alt="">
+        <div class="menu-item-content p-4">
+        
+        <h5 class="mt-1 mb-2 justify-content-center"><a href="me.html">Mechanical Engineering</a></h5>
+        <p class="small"></p>
+     </div>
+     </div>
+     </div>
+     </div>
+     </div>
+     </div>
+     <!-- About -->  
+  <section id="about">
+    <div class="container"  style="background-color: grey;">
+      <div class="row gy-4 align-items-center">
+        <div class="col-lg-6 ">
+          <img id="image" src="/assets/images/abc.jpg" />
+
+<script>
+ 
+
+  changeImage(); // Start the image rotation
+</script>
+
+         
+            </div>
+    <div class="col-lg-5">
+      <h1>About Us</h1>
+      <div class="divider my-4"></div>
+     <div > <p style="color: white ">
+        Govt. Polytechnic College Kangra came into existence in the year 1992, with the up gradation of erstwhile Junior Technical School established by Punjab Govt. in 1959.
+
+
+This polytechnic has earned the reputation of being one of the premier institutes of the state by producing and providing technically competent, professionally proficient and socially relevant human resources to cater for the industrial and technological world of work. This Polytechnic has attained the capability and distinction of acquiring ISO 9001-2015 by developing the optimal infrastructure, and becoming a cynosure for the seekers of the technical education .
+
+This Polytechnic is imparting three year diploma courses in the emerging areas of technology viz. Computer Engineering, Electrical Engineering, Electronics and Communication Engineering, Instrumentation Engineering and read more >>
+
+Our Vision
+Keeping abreast of the latest trends in technology and fast changing scenario in the national and international employability, Government Polytechnic, Kangra has the following vision:-
+
+“To produce highly competent technical manpower to match the dynamic environment of the global market, offering services to the industry and community ensuring a place for India in the select band of developed countries”.
+       
+       </p>
+       </div>
+
+    </div>
+    </div>
+    </div>
+  </section>
+  <script>
+    // Function to dynamically add pages
+    function addPage(pageId, pageTitle, pageContent) {
+        var newPage = document.createElement('div');
+        newPage.id = pageId;
+        newPage.innerHTML = `<h2>${pageTitle}</h2>${pageContent}`;
+        document.getElementById('content').appendChild(newPage);
+
+        // Update the navigation menu
+        var newMenuItem = document.createElement('li');
+        newMenuItem.innerHTML = `<a href="#${pageId}">${pageTitle}</a>`;
+        document.getElementById('menu').appendChild(newMenuItem);
+    }
+
+    // Example usage
+    addPage('home', 'Home', 'Welcome to our website!');
+    addPage('about', 'About', 'Learn more about us.');
+
+    // You can add more pages by calling addPage function with different parameters.
+    // addPage('contact', 'Contact', 'Get in touch with us.');
+</script>
+
+<!--EVENTS-->
+
+<section id="events">
+  <div class="event">
+      <h2>SPORTS MEET</h2>
+      <p class="event-details">Date: 23 NOVEMBER,2023 - 24 NOVEMBER,2023<br>Time: 7:00 AM - 7:00 PM <br>Location: GOVERNMENT POYTECHNIC KANGRA</p>
+      <p class="event-description">On 23 to 25 November,2023 there was a inter collage sport meet in Government Polytechnic kangra.In this occation 14 coleges particpated.Here are some memories of that ocassion. </div>
+
+  
+  <!-- Add more events as needed -->
+
+</section>
+
+<script src="script.js"></script>
+
+      <main>
+        <!-- ================== -->
+        <!-- Google Map Element -->
+        <section class="google-map">
+            <div class="map-frame">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3379.5278047379607!2d76.27318877615842!3d32.10904531782161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391b4f86bdf7fbed%3A0xbc581ec7302a9cad!2sGovernment%20Polytechnic%2C%20Kangra!5e0!3m2!1sen!2sin!4v1701319006775!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+            </div>
+        </section>
+        <!-- Google Map Element -->
+        <!-- ================== -->
+    </main>
+    
+  
+
+  </div>
+</div>
+
+
+    
+
+    <!--footer-->
+    <div class="buttons">
+      <a href="https://www.hptechboard.com/"button class="btn-hover color-1">OFFICIAL COLLEGE SITE </button></a>
+     <a href="sign page.html"button class="btn-hover color-2">NEW  COLLEGE  SITE</button></a>
+    
+  </div>   
+    <section id="contact us" class="">
+    <footer class="bg-cover">
+      <div class="footer-top">
+        <div class="container">
+          <div class="row gy-5">
+             <div class="col-lg-4">
+              <p>Student Portal For students of GOVERNMENT POLYTECHNIC KANGRA<br>FOR BETTER STUDY PURPOSE </p>
+              <div class="social-links">
+                  <a href="#"><i class="ri-facebook-circle-fill"></i></a>
+                    <a href="#"><i class="ri-instagram-fill"></i></a>
+                      <a href="#"><i class="ri-youtube-fill"></i></a>
+                        <a href="#"><i class="ri-google-fill"></i></a>
+                
+              </div>
+              
+             </div>
+             <div class="col-lg-3 ms-auto">
+              <h6 class="text-white">CONTACT</h6>
+              <p class="mb-2">Phone Number:(+91) 756768 67787</p>
+              <p class="mb-2">Email Address: </p>
+              <p class="mb-0">Address:GOVERNMENT POLYTECHNIC KANGRA, HIMACHAL PRADESH near Kangra Bus Stand Pin Code->176001</p>
+             </div>
+             <div class="col-lg-3">
+              <h6 class="text-white mb-4">OPENING hOURS</h6>
+              <p class="mb-2">Monday-Saturday: 9:00AM-5:20PM</p>
+              <p class="mb-2">Sunday: OFF</p>
+             
+             </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container">
+          <div class="row gy-3 justify-content-between">
+            <div class="col-auto">
+              <p class="mb-0"> &copy; Copyright all rights reserved</p>
+            </div>
+            <div class="col-auto">
+              <p class="mb-0"><a href="#"></a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+   
+  </section>
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+  
+</body>
+
+</html>
+  </div>
+
+  </body>
+  </html>
